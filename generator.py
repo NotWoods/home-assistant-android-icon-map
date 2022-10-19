@@ -31,13 +31,14 @@ def fetch_mdi_meta(commit):
 
 dialog_id_map = fetch_icon_dialog_id_mapping(config['icondialoglib_commit'])
 icon_meta = fetch_mdi_meta(config['mdi_commit'])
+compact_json_separators = (',', ':')
 
 mapped_dialog_id_to_name = {
     icon['name']: dialog_id_map[icon['codepoint'].lower()]
     for icon in icon_meta if icon['codepoint'].lower() in dialog_id_map
 }
 with open("mdi_id_map.json", "w") as f:
-    json.dump(mapped_dialog_id_to_name, f)
+    json.dump(mapped_dialog_id_to_name, f, separators=compact_json_separators)
 
 mapped_icon_meta = [
     {
@@ -48,4 +49,4 @@ mapped_icon_meta = [
     } for icon in icon_meta
 ]
 with open("icon_meta.json", "w") as f:
-    json.dump(mapped_icon_meta, f)
+    json.dump(mapped_icon_meta, f, separators=compact_json_separators)
